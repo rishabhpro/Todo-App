@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
 const Container = styled.div`
   max-width: 400px;
@@ -22,11 +22,11 @@ const TodoItemContainer = styled.li<{ completed: boolean }>`
   display: flex;
   align-items: center;
   margin-bottom: 8px;
-  text-decoration: ${({ completed }) => (completed ? 'line-through' : 'none')};
-  color: ${({ completed }) => (completed ? 'gray' : 'inherit')};
+  text-decoration: ${({ completed }) => (completed ? "line-through" : "none")};
+  color: ${({ completed }) => (completed ? "gray" : "inherit")};
 `;
 
-const TodoItemCheckbox = styled.input.attrs({ type: 'checkbox' })`
+const TodoItemCheckbox = styled.input.attrs({ type: "checkbox" })`
   margin-right: 8px;
 `;
 
@@ -40,7 +40,20 @@ const TodoItemDeleteButton = styled.button`
   border: none;
   padding: 4px 8px;
   cursor: pointer;
+  &:hover {
+    background: blue;
+  }
 `;
+const headingStyle = {
+  color: 'blue',
+  fontSize: '32px',
+  textAlign: 'center',
+  textTransform: 'uppercase',
+  fontWeight: 'bold',
+  fontFamily: 'Arial, sans-serif',
+  margin: '20px 0',
+  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+};
 
 interface TodoItem {
   id: number;
@@ -50,14 +63,14 @@ interface TodoItem {
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
-  const [todoInput, setTodoInput] = useState('');
+  const [todoInput, setTodoInput] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTodoInput(event.target.value);
   };
 
   const handleAddTodo = () => {
-    if (todoInput.trim() !== '') {
+    if (todoInput.trim() !== "") {
       const newTodo: TodoItem = {
         id: Date.now(),
         description: todoInput,
@@ -65,7 +78,7 @@ const App: React.FC = () => {
       };
 
       setTodos([...todos, newTodo]);
-      setTodoInput('');
+      setTodoInput("");
     }
   };
 
@@ -84,13 +97,13 @@ const App: React.FC = () => {
 
   return (
     <Container>
-      <h1>Todo List</h1>
+      <h1 style={headingStyle}>Todo List</h1>
       <TodoInput
         type="text"
         placeholder="Enter a new task"
         value={todoInput}
         onChange={handleInputChange}
-        onKeyPress={(event) => event.key === 'Enter' && handleAddTodo()}
+        onKeyPress={(event) => event.key === "Enter" && handleAddTodo()}
       />
       <TodoListContainer>
         {todos.map((todo) => (
